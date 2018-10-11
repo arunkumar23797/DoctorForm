@@ -227,7 +227,7 @@ class ClinicDetails extends React.Component {
                 <div>
                     <AddClinic clinicDetails={this.state.clinicDetailsInfo}
                         weekDays={this.state.weekdaystiming} 
-                        selectedDays={this.state.selectedDays} />
+                        selectedDays={this.state.selectedWeek} />
                 </div>
                 <div className="profile-details">
                     <div className="div-id">

@@ -10,24 +10,26 @@ class clinicDetailsFunction extends React.Component {
     }
 
     openModal = () => {
+       // debugger
+        document.body.style.overflow = 'hidden';
         console.log("Clinics size ", this.props.clinicDetails.length);
         if (this.props.clinicDetails.length === 0)
             alert("No Clinics");
         if (this.props.clinicDetails.length !== 0) {
             this.setState({ open: true });
         }
-        //document.body.style.overflow = 'scroll';
+        
     };
     closeModal = () => {
         this.setState({ open: false });
-        //document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'scroll';
     };
 
     render() {
         const clinics = this.props.clinicDetails;
         const time = this.props.weekDays;
         const days = this.props.selectedDays;
-        
+       
         return (
             <div>
                 <button onClick={this.openModal}>Open</button>
@@ -80,11 +82,8 @@ class clinicDetailsFunction extends React.Component {
                                                         )
                                                     })
                                                 }
-                                            </div>
-                                        </div>
-                                        <div className="search div-space">
-                                            {
-                                                days.map((data1,index) => {
+                                                {
+                                                    days.map((data1,index) => {
                                                         
                                                         return (
                                                             <div key={index}>
@@ -94,11 +93,13 @@ class clinicDetailsFunction extends React.Component {
                                                             }
                                                             </div>
                                                             
-                                                        )
+                                                        );
                                                     
                                                 })
-                                            }
+                                                }
+                                            </div>
                                         </div>
+                                        
                                     </div>
                                 );
                             })

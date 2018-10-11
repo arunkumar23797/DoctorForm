@@ -3,6 +3,8 @@ import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Registration from './Registration';
+import Formsy from 'formsy-react';
+import InputValidation from './InputValidation';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const genderOptions = [
@@ -34,7 +36,8 @@ class PersonalDetails extends React.Component {
             emailErr: "",
             phoneNumberErr: "",
             addressErr: "",
-            cityErr: ""
+            cityErr: "",
+            canSubmit: false
         };
     }
 
@@ -182,95 +185,115 @@ class PersonalDetails extends React.Component {
         })
     }
 
+    disableButton = () => {
+        this.setState({ canSubmit: false });
+    }
+
+    enableButton = () => {
+        console.log("enable button!!!");
+        this.setState({ canSubmit: true });
+    }
+
+    submit(model) {
+        fetch('http://example.com/', {
+            method: 'post',
+            body: JSON.stringify(model)
+        });
+    }
+
     render() {
         return (
             <div >
                 <div>
                     <h4>Profile Details</h4>
-                    <div className="profile-details">
+                    <div>
+                        <Formsy onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
+                            <div className="profile-details">
+                                <div className="div-id">
+                                    <h4>First Name</h4>
+                                    <input
+                                        className="input-box"
+                                        value={this.state.firstName}
+                                        onBlur={this.onBlur_firstName}
+                                        onChange={this.firstName} type="text" placeholder="first name" />
 
-                        <div className="div-id">
-                            <h4>First Name</h4>
-                            <input
-                                className="input-box"
-                                value={this.state.firstName}
-                                onBlur={this.onBlur_firstName}
-                                onChange={this.firstName} type="text" placeholder="first name" />
+                                    <h5 className="error-message">{this.state.firstNameErr}</h5>
+                                </div>
 
-                            <h5 className="error-message">{this.state.firstNameErr}</h5>
-                        </div>
+                                <div className="div-id">
+                                    <h4>Last Name</h4>
+                                    <input className="input-box" type="text" placeholder="last name" />
+                                </div>
 
-                        <div className="div-id">
-                            <h4>Last Name</h4>
-                            <input className="input-box" type="text" placeholder="last name" />
-                        </div>
+                                <div className="div-id">
+                                    <h4>Email Id</h4>
+                                    <InputValidation
+                                        name="email"
+                                        validations="isEmail"
+                                        validationError="This is not a valid email"
+                                        required
+                                    />
+                                    <h5 className="error-message">{this.state.emailErr}</h5>
+                                </div>
 
-                        <div className="div-id">
-                            <h4>Email Id</h4>
-                            <input className="input-box"
-                                type="text"
-                                onBlur={this.onBlur_emailId}
-                                onChange={this.validateEmailId}
-                                value={this.state.email}
-                                placeholder="Email Id" />
-                            <h5 className="error-message">{this.state.emailErr}</h5>
-                        </div>
+                                <div className="div-id">
+                                    <h4>Phone Number</h4>
+                                    <input
+                                        className="input-box"
+                                        type="number"
+                                        onChange={this.validatePhoneNumber}
+                                        value={this.state.phoneNumber}
+                                        maxlength="10"
+                                        onBlur={this.onBlur_phoneNumber}
+                                        placeholder="phone number" />
+                                    <h5 className="error-message">{this.state.phoneNumberErr}</h5>
+                                </div>
 
-                        <div className="div-id">
-                            <h4>Phone Number</h4>
-                            <input
-                                className="input-box"
-                                type="number"
-                                onChange={this.validatePhoneNumber}
-                                value={this.state.phoneNumber}
-                                maxlength="10"
-                                onBlur={this.onBlur_phoneNumber}
-                                placeholder="phone number" />
-                            <h5 className="error-message">{this.state.phoneNumberErr}</h5>
-                        </div>
+                                <div className="div-id">
+                                    <h4> Gender</h4>
+                                    <Select className="drop-down-menu"
+                                        value={this.state.selectedOption}
+                                        onChange={this.handleGenderChange}
+                                        options={genderOptions}>
+                                    </Select>
+                                </div>
+                            </div>
 
-                        <div className="div-id">
-                            <h4> Gender</h4>
-                            <Select className="drop-down-menu"
-                                value={this.state.selectedOption}
-                                onChange={this.handleGenderChange}
-                                options={genderOptions}>
-                            </Select>
-                        </div>
+                            <div className="profile-details">
+                                <div className="div-id">
+                                    <h4>Date of Birth</h4>
+                                    <DatePicker className="input-box-dob"
+                                        selected={this.state.startDate}
+                                        onChange={this.handleDateChange}>
+                                    </DatePicker>
+                                </div>
+                                <div className="div-id">
+                                    <h4>Address</h4>
+                                    <input className="input-box-dob"
+                                        type="text"
+                                        onBlur={this.onBlur_address}
+                                        onChange={this.address}
+                                        value={this.state.address}
+                                        placeholder="Address" >
+                                    </input>
+                                    <h5 className="error-message">{this.state.addressErr}</h5>
+                                </div>
+                                <div className="div-id">
+                                    <h4>City</h4>
+                                    <input className="input-box-dob"
+                                        value={this.state.city}
+                                        onBlur={this.onBlur_city}
+                                        onChange={this.city}
+                                        placeholder="City">
+                                    </input>
+                                    <h5 className="error-message">{this.state.cityErr}</h5>
+                                </div>
+                            </div>
+                            <div>
+                                <Registration />
+                            </div>
+                        </Formsy>
                     </div>
-                </div>
-                <div className="profile-details">
-                    <div className="div-id">
-                        <h4>Date of Birth</h4>
-                        <DatePicker className="input-box-dob"
-                            selected={this.state.startDate}
-                            onChange={this.handleDateChange}>
-                        </DatePicker>
-                    </div>
-                    <div className="div-id">
-                        <h4>Address</h4>
-                        <input className="input-box-dob"
-                            type="text"
-                            onBlur={this.onBlur_address}
-                            onChange={this.address}
-                            value={this.state.address}
-                            placeholder="Address" >
-                        </input>
-                        <h5 className="error-message">{this.state.addressErr}</h5>
-                    </div>
-                    <div className="div-id">
-                        <h4>City</h4>
-                        <input className="input-box-dob"
-                            value={this.state.city}
-                            onBlur={this.onBlur_city}
-                            onChange={this.city}
-                            placeholder="City">
-                        </input>
-                        <h5 className="error-message">{this.state.cityErr}</h5>
-                    </div>
-                </div>
-                <div>
-                    <Registration />
                 </div>
             </div>
         );

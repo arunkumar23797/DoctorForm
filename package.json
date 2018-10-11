@@ -3,9 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts": "2.0.4"
+    "@progress/kendo-dateinputs-react-wrapper": "^2018.3.911",
+    "@progress/kendo-ui": "^2018.3.1003",
+    "antd": "^3.10.0",
+    "bootstrap": "^4.1.3",
+    "formsy-react": "^1.1.5",
+    "material-ui-time-picker": "^1.0.0",
+    "prop-types": "^15.6.2",
+    "rc-time-picker": "^3.4.0",
+    "react-bootstrap": "^0.32.4",
+    "react-bootstrap-time-picker": "^1.0.3",
+    "react-collapsible": "^2.3.1",
+    "react-datepicker": "^1.6.0",
+    "react-datetime": "^2.15.0",
+    "react-file-picker": "0.0.5",
+    "react-scripts": "2.0.4",
+    "react-select": "^2.1.0",
+    "react-simpletabs": "^0.7.0",
+    "react-svg-text": "^0.1.2",
+    "react-tabs": "^2.3.0",
+    "react-time-input": "0.0.19",
+    "react-time-picker": "^2.8.0",
+    "react-time-select": "^2.3.0",
+    "react-times": "^3.1.9",
+    "react-weekday-picker": "^1.0.8",
+    "react-year-picker": "^0.3.7",
+    "reactjs-popup": "^1.3.0",
+    "reactstrap": "^6.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,5 +45,11 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  }
 }
